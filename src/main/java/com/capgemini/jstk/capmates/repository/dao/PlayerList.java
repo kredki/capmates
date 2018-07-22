@@ -6,11 +6,11 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.capgemini.jstk.capmates.repository.entities.Player;
 
-@Component
+@Repository
 @Scope("singleton")
 public class PlayerList {
 	private final CopyOnWriteArrayList<Player> playerList;
