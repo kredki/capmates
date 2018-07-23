@@ -1,6 +1,6 @@
 package com.capgemini.jstk.capmates.services.dto;
 
-public class Player {
+public class PlayerDTO {
 	private long id;
 	private String firstName;
 	private String lastName;
@@ -8,7 +8,7 @@ public class Player {
 	private String password;
 	private String motto;
 
-	public Player(Long id, String firstName, String lastName, String email, String password,
+	public PlayerDTO(Long id, String firstName, String lastName, String email, String password,
 			String motto) {
 		super();
 		this.id = id;
