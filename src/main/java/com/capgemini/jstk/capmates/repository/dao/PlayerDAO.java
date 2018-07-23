@@ -11,6 +11,6 @@ public interface PlayerDAO {
 
 	Optional<PlayerEntity> getPlayerById(long id);
 
-	boolean setPlayer(PlayerEntity player);
+	boolean updatePlayer(PlayerEntity player);
 
 }

@@ -13,6 +13,6 @@ public interface BoardGameDAO {
 
 	Optional<BoardGameEntity> getBoardGameByTitle(String title);
 
-	boolean setBoardGame(BoardGameEntity boardGame);
+	boolean updateBoardGame(BoardGameEntity boardGame);
 
 }

@@ -1,8 +1,8 @@
 package com.capgemini.jstk.capmates.repository.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +21,7 @@ public class PlayerList implements PlayerDAO {
 
 	@Autowired
 	public PlayerList() {
-		playerList = new CopyOnWriteArrayList<>();
+		playerList = new ArrayList<>();
 	}
 
 	@PostConstruct
@@ -53,7 +53,7 @@ public class PlayerList implements PlayerDAO {
 	}
 
 	@Override
-	public boolean setPlayer(PlayerEntity player) {
+	public boolean updatePlayer(PlayerEntity player) {
 		long playerId = player.getId();
 		for (PlayerEntity p : playerList) {
 			if (p.getId() == playerId) {

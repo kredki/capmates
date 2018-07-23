@@ -1,8 +1,8 @@
 package com.capgemini.jstk.capmates.repository.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.PostConstruct;
@@ -19,7 +19,7 @@ public class BoardGameList implements BoardGameDAO {
 	private static final AtomicLong counter = new AtomicLong(1);
 
 	public BoardGameList() {
-		boardGameList = new CopyOnWriteArrayList<>();
+		boardGameList = new ArrayList<>();
 	}
 
 	@PostConstruct
@@ -56,7 +56,7 @@ public class BoardGameList implements BoardGameDAO {
 	}
 
 	@Override
-	public boolean setBoardGame(BoardGameEntity boardGame) {
+	public boolean updateBoardGame(BoardGameEntity boardGame) {
 		long id = boardGame.getId();
 		for (BoardGameEntity bg : boardGameList) {
 			if (bg.getId() == id) {
