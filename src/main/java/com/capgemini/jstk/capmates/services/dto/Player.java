@@ -1,8 +1,5 @@
-package com.capgemini.jstk.capmates.repository.entities;
+package com.capgemini.jstk.capmates.services.dto;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class Player {
 	private long id;
 	private String firstName;

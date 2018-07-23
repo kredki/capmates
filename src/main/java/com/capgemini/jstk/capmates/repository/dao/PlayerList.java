@@ -1,6 +1,7 @@
 package com.capgemini.jstk.capmates.repository.dao;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.PostConstruct;
 
@@ -14,6 +15,7 @@ import com.capgemini.jstk.capmates.repository.entities.Player;
 @Scope("singleton")
 public class PlayerList {
 	private final CopyOnWriteArrayList<Player> playerList;
+	private static final AtomicLong counter = new AtomicLong(1);
 
 	@Autowired
 	public PlayerList() {
@@ -22,12 +24,12 @@ public class PlayerList {
 
 	@PostConstruct
 	private void init() {
-		playerList.add(new Player("Adam", "Nowak", "adam@nowak.pl", "pass", "motto"));
-		playerList.add(
-				new Player("Jan", "Kowalski", "mail@mail.com", "pass", "kokodżambo i do przodu"));
-		playerList.add(new Player("John", "Doe", "abc@xyz.it", "pass2", "lubie placki"));
-		playerList.add(new Player("John", "Rambo", "john@rambo.com", "haslo", "rambo"));
-		playerList.add(new Player("Arnold", "Schwartzenegger", "arni@terminator.pl", "pass",
+		playerList.add(new Player(counter.getAndIncrement(), "Adam", "Nowak", "adam@nowak.pl", "pass", "motto"));
+		playerList.add(new Player(counter.getAndIncrement(), "Jan", "Kowalski", "mail@mail.com", "pass",
+				"kokodżambo i do przodu"));
+		playerList.add(new Player(counter.getAndIncrement(), "John", "Doe", "abc@xyz.it", "pass2", "lubie placki"));
+		playerList.add(new Player(counter.getAndIncrement(), "John", "Rambo", "john@rambo.com", "haslo", "rambo"));
+		playerList.add(new Player(counter.getAndIncrement(), "Arnold", "Schwartzenegger", "arni@terminator.pl", "pass",
 				"I'll be back"));
 	}
 }
