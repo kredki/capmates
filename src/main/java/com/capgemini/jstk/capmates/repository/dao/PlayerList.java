@@ -15,7 +15,7 @@ import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 
 @Repository
 @Scope("singleton")
-public class PlayerList implements Player {
+public class PlayerList implements PlayerDAO {
 	private final List<PlayerEntity> playerList;
 	private static final AtomicLong counter = new AtomicLong(1);
 

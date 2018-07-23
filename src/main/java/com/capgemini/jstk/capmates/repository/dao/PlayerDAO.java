@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 
-public interface Player {
+public interface PlayerDAO {
 
 	List<PlayerEntity> getPlayers();
 
