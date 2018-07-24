@@ -53,7 +53,7 @@ public class PlayerList implements PlayerDAO {
 	}
 
 	@Override
-	public boolean updatePlayer(PlayerEntity player) {
+	public PlayerEntity updatePlayer(PlayerEntity player) {
 		long playerId = player.getId();
 		for (PlayerEntity p : playerList) {
 			if (p.getId() == playerId) {
@@ -62,30 +62,21 @@ public class PlayerList implements PlayerDAO {
 				p.setLastName(player.getLastName());
 				p.setMotto(player.getMotto());
 				p.setPassword(player.getPassword());
-				return true;
+				return p;
 			}
 		}
-		return false;
+		return null;
 	}
 
-	public boolean addPlayer(PlayerEntity playerToAdd) {
+	public PlayerEntity addPlayer(PlayerEntity playerToAdd) {
 		long id = playerToAdd.getId();
 		for (PlayerEntity player : playerList) {
 			if (player.getId() == id) {
-				return false;
+				return null;
 			}
 		}
+		playerToAdd.setId(this.counter.getAndIncrement());
 		this.playerList.add(playerToAdd);
-		return true;
-	}
-
-	@Override
-	public long getNextIdAndIncrement() {
-		long currentCounterValue = this.counter.get();
-		if (this.playerList.size() == currentCounterValue) {
-			return counter.getAndIncrement();
-		} else {
-			return currentCounterValue;
-		}
+		return playerToAdd;
 	}
 }

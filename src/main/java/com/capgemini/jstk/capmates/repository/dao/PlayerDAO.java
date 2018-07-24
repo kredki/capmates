@@ -11,9 +11,7 @@ public interface PlayerDAO {
 
 	Optional<PlayerEntity> getPlayerById(long id);
 
-	boolean updatePlayer(PlayerEntity player);
+	PlayerEntity updatePlayer(PlayerEntity player);
 
-	boolean addPlayer(PlayerEntity playerToAdd);
-
-	long getNextIdAndIncrement();
+	PlayerEntity addPlayer(PlayerEntity playerToAdd);
 }
