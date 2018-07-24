@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.jstk.capmates.repository.entities.BoardGameEntity;
+import com.capgemini.jstk.capmates.services.dto.GameToAddDTO;
 
 @Repository
 @Scope("singleton")
@@ -24,10 +25,10 @@ public class BoardGameList implements BoardGameDAO {
 
 	@PostConstruct
 	private void init() {
-		boardGameList.add(new BoardGameEntity(counter.getAndIncrement(), "Agricola"));
-		boardGameList.add(new BoardGameEntity(counter.getAndIncrement(), "Hansa Teutonica"));
-		boardGameList.add(new BoardGameEntity(counter.getAndIncrement(), "Pax Pamir"));
-		boardGameList.add(new BoardGameEntity(counter.getAndIncrement(), "Troyes"));
+		boardGameList.add(new BoardGameEntity(counter.getAndIncrement(), "Agricola", 1, 5));
+		boardGameList.add(new BoardGameEntity(counter.getAndIncrement(), "Hansa Teutonica", 2, 5));
+		boardGameList.add(new BoardGameEntity(counter.getAndIncrement(), "Pax Pamir", 2, 5));
+		boardGameList.add(new BoardGameEntity(counter.getAndIncrement(), "Troyes", 2, 4));
 	}
 
 	@Override
@@ -61,9 +62,24 @@ public class BoardGameList implements BoardGameDAO {
 		for (BoardGameEntity bg : boardGameList) {
 			if (bg.getId() == id) {
 				bg.setTitle(boardGame.getTitle());
+				bg.setPlayerQtFrom(boardGame.getPlayerQtFrom());
+				bg.setPlayerQtTo(boardGame.getPlayerQtTo());
 				return true;
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public boolean addBoardGame(GameToAddDTO gameToAdd) {
+		String title = gameToAdd.getTitle();
+		for (BoardGameEntity bg : boardGameList) {
+			if (bg.getTitle().equals(title)) {
+				return false;
+			}
+		}
+		this.boardGameList.add(new BoardGameEntity(counter.getAndIncrement(), title, gameToAdd.getPlayerQtFrom(),
+				gameToAdd.getPlayerQtTo()));
+		return true;
 	}
 }

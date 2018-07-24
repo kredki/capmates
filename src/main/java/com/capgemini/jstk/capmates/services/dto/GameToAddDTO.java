@@ -1,25 +1,15 @@
-package com.capgemini.jstk.capmates.repository.entities;
+package com.capgemini.jstk.capmates.services.dto;
 
-public class BoardGameEntity {
-	private long id;
+public class GameToAddDTO {
 	private String title;
 	private int playerQtyFrom;
 	private int playerQtyTo;
 
-	public BoardGameEntity(long id, String title, int playerQtFrom, int playerQtTo) {
+	public GameToAddDTO(String title, int playerQtFrom, int playerQtTo) {
 		super();
-		this.id = id;
 		this.title = title;
 		this.playerQtyFrom = playerQtFrom;
 		this.playerQtyTo = playerQtTo;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getTitle() {
