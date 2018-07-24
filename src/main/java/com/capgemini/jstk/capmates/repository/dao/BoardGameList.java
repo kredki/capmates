@@ -56,27 +56,29 @@ public class BoardGameList implements BoardGameDAO {
 	}
 
 	@Override
-	public boolean updateBoardGame(BoardGameEntity boardGame) {
+	public BoardGameEntity updateBoardGame(BoardGameEntity boardGame) {
 		long id = boardGame.getId();
 		for (BoardGameEntity bg : boardGameList) {
 			if (bg.getId() == id) {
 				bg.setTitle(boardGame.getTitle());
-				bg.setPlayerQtFrom(boardGame.getPlayerQtFrom());
-				bg.setPlayerQtTo(boardGame.getPlayerQtTo());
-				return true;
+				bg.setPlayerQtyFrom(boardGame.getPlayerQtyFrom());
+				bg.setPlayerQtyTo(boardGame.getPlayerQtyTo());
+				return bg;
 			}
 		}
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean addBoardGame(BoardGameEntity gameToAdd) {
+	public BoardGameEntity addBoardGame(BoardGameEntity gameToAdd) {
+		String title = gameToAdd.getTitle();
 		for (BoardGameEntity bg : boardGameList) {
-			if (bg.getId() == gameToAdd.getId()) {
-				return false;
+			if (bg.getTitle().equals(title)) {
+				return null;
 			}
 		}
+		gameToAdd.setId(this.counter.getAndIncrement());
 		this.boardGameList.add(gameToAdd);
-		return true;
+		return gameToAdd;
 	}
 }

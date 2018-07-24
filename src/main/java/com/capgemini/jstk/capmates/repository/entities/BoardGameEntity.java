@@ -30,19 +30,19 @@ public class BoardGameEntity {
 		this.title = title;
 	}
 
-	public int getPlayerQtFrom() {
+	public int getPlayerQtyFrom() {
 		return playerQtyFrom;
 	}
 
-	public void setPlayerQtFrom(int playerQtFrom) {
+	public void setPlayerQtyFrom(int playerQtFrom) {
 		this.playerQtyFrom = playerQtFrom;
 	}
 
-	public int getPlayerQtTo() {
+	public int getPlayerQtyTo() {
 		return playerQtyTo;
 	}
 
-	public void setPlayerQtTo(int playerQtTo) {
+	public void setPlayerQtyTo(int playerQtTo) {
 		this.playerQtyTo = playerQtTo;
 	}
 
