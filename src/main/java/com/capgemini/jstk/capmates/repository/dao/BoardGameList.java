@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.jstk.capmates.repository.entities.BoardGameEntity;
-import com.capgemini.jstk.capmates.services.dto.GameToAddDTO;
 
 @Repository
 @Scope("singleton")
@@ -71,15 +70,13 @@ public class BoardGameList implements BoardGameDAO {
 	}
 
 	@Override
-	public boolean addBoardGame(GameToAddDTO gameToAdd) {
-		String title = gameToAdd.getTitle();
+	public boolean addBoardGame(BoardGameEntity gameToAdd) {
 		for (BoardGameEntity bg : boardGameList) {
-			if (bg.getTitle().equals(title)) {
+			if (bg.getId() == gameToAdd.getId()) {
 				return false;
 			}
 		}
-		this.boardGameList.add(new BoardGameEntity(counter.getAndIncrement(), title, gameToAdd.getPlayerQtFrom(),
-				gameToAdd.getPlayerQtTo()));
+		this.boardGameList.add(gameToAdd);
 		return true;
 	}
 }
