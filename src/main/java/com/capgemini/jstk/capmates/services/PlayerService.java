@@ -25,7 +25,7 @@ public class PlayerService {
 
 	public Optional<PlayerDTO> updatePlayer(PlayerDTO playerToUpdate) {
 		PlayerEntity playerEntity = this.playerMapper.mapToEntity(playerToUpdate);
-		if (this.playerDAO.updatePlayer(playerEntity != null)) {
+		if (this.playerDAO.updatePlayer(playerEntity) != null) {
 			PlayerEntity updatedPlayer = this.playerDAO.getPlayerById(playerEntity.getId()).get();
 			return Optional.ofNullable(this.playerMapper.mapToDTO(updatedPlayer));
 		} else {
