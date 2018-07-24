@@ -67,4 +67,15 @@ public class PlayerList implements PlayerDAO {
 		}
 		return false;
 	}
+
+	public boolean addPlayer(PlayerEntity playerToAdd) {
+		long id = playerToAdd.getId();
+		for (PlayerEntity player : playerList) {
+			if (player.getId() == id) {
+				return false;
+			}
+		}
+		this.playerList.add(playerToAdd);
+		return true;
+	}
 }

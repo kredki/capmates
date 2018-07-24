@@ -13,4 +13,6 @@ public interface PlayerDAO {
 
 	boolean updatePlayer(PlayerEntity player);
 
+	boolean addPlayer(PlayerEntity playerToAdd);
+
 }
