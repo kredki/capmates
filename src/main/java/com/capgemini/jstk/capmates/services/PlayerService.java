@@ -23,22 +23,22 @@ public class PlayerService {
 		this.playerDAO = playerDAO;
 	}
 
-	public Optional<PlayerEntity> updatePlayer(PlayerDTO playerToUpdate) {
+	public Optional<PlayerDTO> updatePlayer(PlayerDTO playerToUpdate) {
 		PlayerEntity playerEntity = this.playerMapper.mapToEntity(playerToUpdate);
 		if (this.playerDAO.updatePlayer(playerEntity)) {
 			PlayerEntity updatedPlayer = this.playerDAO.getPlayerById(playerEntity.getId()).get();
-			return Optional.ofNullable(updatedPlayer);
+			return Optional.ofNullable(this.playerMapper.mapToDTO(updatedPlayer));
 		} else {
 			return Optional.ofNullable(null);
 		}
 	}
 
-	public Optional<PlayerEntity> addPlayer(PlayerToAddDTO playerToAddDTO) {
+	public Optional<PlayerDTO> addPlayer(PlayerToAddDTO playerToAddDTO) {
 		long id = this.playerDAO.getNextIdAndIncrement();
 		PlayerEntity playerEntity = this.playerMapper.mapToEntity(id, playerToAddDTO);
 		if (this.playerDAO.addPlayer(playerEntity)) {
 			PlayerEntity addedPlayer = this.playerDAO.getPlayerById(playerEntity.getId()).get();
-			return Optional.ofNullable(addedPlayer);
+			return Optional.ofNullable(this.playerMapper.mapToDTO(addedPlayer));
 		} else {
 			return Optional.ofNullable(null);
 		}

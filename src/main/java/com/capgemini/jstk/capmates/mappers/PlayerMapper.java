@@ -26,4 +26,14 @@ public class PlayerMapper {
 		String motto = playerToAddDTO.getMotto();
 		return new PlayerEntity(id, firstName, lastName, email, password, motto);
 	}
+
+	public PlayerDTO mapToDTO(PlayerEntity playerEntity) {
+		long id = playerEntity.getId();
+		String firstName = playerEntity.getFirstName();
+		String lastName = playerEntity.getLastName();
+		String email = playerEntity.getEmail();
+		String password = playerEntity.getPassword();
+		String motto = playerEntity.getMotto();
+		return new PlayerDTO(id, firstName, lastName, email, password, motto);
+	}
 }
