@@ -15,4 +15,5 @@ public interface PlayerDAO {
 
 	boolean addPlayer(PlayerEntity playerToAdd);
 
+	long getNextIdAndIncrement();
 }

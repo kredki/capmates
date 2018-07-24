@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 import com.capgemini.jstk.capmates.services.dto.PlayerDTO;
+import com.capgemini.jstk.capmates.services.dto.PlayerToAddDTO;
 
 @Component
 public class PlayerMapper {
@@ -14,6 +15,15 @@ public class PlayerMapper {
 		String email = playerDTO.getEmail();
 		String password = playerDTO.getPassword();
 		String motto = playerDTO.getMotto();
+		return new PlayerEntity(id, firstName, lastName, email, password, motto);
+	}
+
+	public PlayerEntity mapToEntity(long id, PlayerToAddDTO playerToAddDTO) {
+		String firstName = playerToAddDTO.getFirstName();
+		String lastName = playerToAddDTO.getLastName();
+		String email = playerToAddDTO.getEmail();
+		String password = playerToAddDTO.getPassword();
+		String motto = playerToAddDTO.getMotto();
 		return new PlayerEntity(id, firstName, lastName, email, password, motto);
 	}
 }

@@ -78,4 +78,14 @@ public class PlayerList implements PlayerDAO {
 		this.playerList.add(playerToAdd);
 		return true;
 	}
+
+	@Override
+	public long getNextIdAndIncrement() {
+		long currentCounterValue = this.counter.get();
+		if (this.playerList.size() == currentCounterValue) {
+			return counter.getAndIncrement();
+		} else {
+			return currentCounterValue;
+		}
+	}
 }
