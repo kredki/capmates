@@ -72,7 +72,7 @@ public class PlayerList implements PlayerDAO {
 		long id = playerToAdd.getId();
 		for (PlayerEntity player : playerList) {
 			if (player.getId() == id) {
-				return null;
+				return player;
 			}
 		}
 		playerToAdd.setId(this.counter.getAndIncrement());
