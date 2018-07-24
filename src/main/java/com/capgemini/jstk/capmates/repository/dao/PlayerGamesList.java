@@ -15,17 +15,15 @@ import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 
 @Repository
 @Scope("singleton")
-public class PlayersGamesList {
+public class PlayerGamesList implements PlayerGamesDAO {
 	private final List<PlayerBoardGameEntity> playerBoardGamesList;
-	private final List<BoardGameEntity> gameList;
-	private final PlayerList players;
-	private final BoardGameList boardGames;
+	private final PlayerDAO players;
+	private final BoardGameDAO boardGames;
 
 	@Autowired
-	public PlayersGamesList(BoardGameList gameList, PlayerList players, BoardGameList boardGames) {
+	public PlayerGamesList(PlayerDAO players, BoardGameDAO boardGames) {
 		super();
 		this.playerBoardGamesList = new ArrayList<>();
-		this.gameList = gameList.getBoardGames();
 		this.players = players;
 		this.boardGames = boardGames;
 	}
@@ -42,6 +40,7 @@ public class PlayersGamesList {
 		this.playerBoardGamesList.add(new PlayerBoardGameEntity(3L, 3L));
 	}
 
+	@Override
 	public List<BoardGameEntity> getPlayerGames(long playerId) {
 		List<BoardGameEntity> result = new ArrayList<>();
 		for (PlayerBoardGameEntity playerBoardGameEntity : this.playerBoardGamesList) {
@@ -52,5 +51,17 @@ public class PlayersGamesList {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public BoardGameEntity addBoardGame(Long playerId, BoardGameEntity game) {
+		// todo
+		return null;
+	}
+
+	@Override
+	public BoardGameEntity removeBoardGame(Long playerId, BoardGameEntity game) {
+		// todo
+		return null;
 	}
 }
