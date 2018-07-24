@@ -1,6 +1,8 @@
 package com.capgemini.jstk.capmates.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +43,10 @@ public class PlayerService {
 		} else {
 			return Optional.ofNullable(null);
 		}
+	}
+
+	public List<PlayerDTO> getPlayers() {
+		List<PlayerEntity> players = this.playerDAO.getPlayers();
+		return players.stream().map(x -> playerMapper.mapToDTO(x)).collect(Collectors.toList());
 	}
 }
