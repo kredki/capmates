@@ -1,5 +1,7 @@
 package com.capgemini.jstk.capmates.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,22 +23,24 @@ public class PlayerService {
 		this.playerDAO = playerDAO;
 	}
 
-	public boolean updatePlayer(PlayerDTO playerToUpdate) {
+	public Optional<PlayerEntity> updatePlayer(PlayerDTO playerToUpdate) {
 		PlayerEntity playerEntity = this.playerMapper.mapToEntity(playerToUpdate);
 		if (this.playerDAO.updatePlayer(playerEntity)) {
-			return true;
+			PlayerEntity updatedPlayer = this.playerDAO.getPlayerById(playerEntity.getId()).get();
+			return Optional.ofNullable(updatedPlayer);
 		} else {
-			return false;
+			return Optional.ofNullable(null);
 		}
 	}
 
-	public boolean addPlayer(PlayerToAddDTO playerToAddDTO) {
+	public Optional<PlayerEntity> addPlayer(PlayerToAddDTO playerToAddDTO) {
 		long id = this.playerDAO.getNextIdAndIncrement();
 		PlayerEntity playerEntity = this.playerMapper.mapToEntity(id, playerToAddDTO);
 		if (this.playerDAO.addPlayer(playerEntity)) {
-			return true;
+			PlayerEntity addedPlayer = this.playerDAO.getPlayerById(playerEntity.getId()).get();
+			return Optional.ofNullable(addedPlayer);
 		} else {
-			return false;
+			return Optional.ofNullable(null);
 		}
 	}
 }
