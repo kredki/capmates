@@ -30,8 +30,8 @@ public class AvailabilityHoursList implements AvailabilityHoursDAO {
 		LocalTime fromHour3 = LocalTime.parse("20:00");
 		LocalTime toHour2 = LocalTime.parse("19:00");
 		LocalTime toHour3 = LocalTime.parse("22:00");
-		LocalTime fromHour4 = LocalTime.parse("8:00");
-		LocalTime toHour4 = LocalTime.parse("9:30");
+		LocalTime fromHour4 = LocalTime.parse("08:00");
+		LocalTime toHour4 = LocalTime.parse("09:30");
 		this.availabilityHoursList.add(new AvailabilityHoursEntity(1L, fromHour, toHour));
 		this.availabilityHoursList.add(new AvailabilityHoursEntity(2L, fromHour, toHour));
 		this.availabilityHoursList.add(new AvailabilityHoursEntity(3L, fromHour, toHour2));
@@ -55,8 +55,8 @@ public class AvailabilityHoursList implements AvailabilityHoursDAO {
 
 	@Override
 	public List<AvailabilityHoursEntity> getAvailabilityHoursOfOtherPlayers(long ignoredId) {
-		List<AvailabilityHoursEntity> result = this.availabilityHoursList.stream().filter(x -> x.getPlayerId() != ignoredId)
-				.collect(Collectors.toList());
+		List<AvailabilityHoursEntity> result = this.availabilityHoursList.stream()
+				.filter(x -> x.getPlayerId() != ignoredId).collect(Collectors.toList());
 		return result;
 	}
 
