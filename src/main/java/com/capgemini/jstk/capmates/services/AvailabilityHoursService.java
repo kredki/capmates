@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.jstk.capmates.mappers.AvailabilityHoursMapper;
 import com.capgemini.jstk.capmates.repository.dao.AvailabilityHoursDAO;
+import com.capgemini.jstk.capmates.repository.dao.RemovedHourDAO;
 import com.capgemini.jstk.capmates.repository.entities.AvailabilityHoursEntity;
+import com.capgemini.jstk.capmates.repository.entities.RemovedHoursEntity;
 import com.capgemini.jstk.capmates.services.dto.AvailabilityHoursDTO;
 import com.capgemini.jstk.capmates.services.dto.ChallengeDTO;
 
@@ -21,13 +24,15 @@ public class AvailabilityHoursService {
 	private static final int MAX_MATCHED_HOURS = 40;
 	private AvailabilityHoursDAO availabilityHoursDAO;
 	private AvailabilityHoursMapper availabilityHoursMapper;
+	private RemovedHourDAO removedHourDAO;
 
 	@Autowired
 	public AvailabilityHoursService(AvailabilityHoursDAO availabilityHoursDAO,
-			AvailabilityHoursMapper availabilityHoursMapper) {
+			AvailabilityHoursMapper availabilityHoursMapper, RemovedHourDAO removedHourDAO) {
 		super();
 		this.availabilityHoursDAO = availabilityHoursDAO;
 		this.availabilityHoursMapper = availabilityHoursMapper;
+		this.removedHourDAO = removedHourDAO;
 	}
 
 	public Optional<AvailabilityHoursDTO> addAvailabilityHours(AvailabilityHoursDTO hoursToAdd) {
@@ -40,11 +45,15 @@ public class AvailabilityHoursService {
 		}
 	}
 
-	public Optional<AvailabilityHoursDTO> removeAvailabilityHours(AvailabilityHoursDTO hoursToRemove) {
+	public Optional<AvailabilityHoursDTO> removeAvailabilityHours(AvailabilityHoursDTO hoursToRemove, String comment) {
 		Optional<AvailabilityHoursEntity> removedHours = this.availabilityHoursDAO
 				.removeAvailabilityHours(availabilityHoursMapper.mapToEntity(hoursToRemove));
 		if (removedHours.isPresent()) {
-			return Optional.ofNullable(this.availabilityHoursMapper.mapToDTO(removedHours.get()));
+			AvailabilityHoursDTO removedHoursDTO = this.availabilityHoursMapper.mapToDTO(removedHours.get());
+			ModelMapper mapper = new ModelMapper();
+			Optional<RemovedHoursEntity> result = removedHourDAO
+					.addRemovedHour(mapper.map(removedHoursDTO, RemovedHoursEntity.class));
+			return Optional.ofNullable(mapper.map(result, AvailabilityHoursDTO.class));
 		} else {
 			return Optional.ofNullable(null);
 		}

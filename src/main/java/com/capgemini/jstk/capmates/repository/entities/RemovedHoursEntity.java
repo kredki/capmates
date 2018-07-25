@@ -1,19 +1,19 @@
-package com.capgemini.jstk.capmates.services.dto;
+package com.capgemini.jstk.capmates.repository.entities;
 
 import java.time.LocalTime;
 
-public class AvailabilityHoursDTO {
+public class RemovedHoursEntity {
 	private long playerId;
 	private LocalTime fromHour;
 	private LocalTime toHour;
 	private String comment;
 
-	public AvailabilityHoursDTO(long playerId, LocalTime fromHour, LocalTime toHour) {
+	public RemovedHoursEntity(long playerId, LocalTime fromHour, LocalTime toHour, String comment) {
 		super();
 		this.playerId = playerId;
 		this.fromHour = fromHour;
 		this.toHour = toHour;
-		this.comment = "";
+		this.comment = comment;
 	}
 
 	public long getPlayerId() {
