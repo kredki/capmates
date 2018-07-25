@@ -1,6 +1,7 @@
 package com.capgemini.jstk.capmates.repository.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.capgemini.jstk.capmates.repository.entities.HistoryEntity;
 
@@ -12,4 +13,7 @@ public interface HistoryDAO {
 
 	List<HistoryEntity> getHistoryForPlayer(Long playerId, long gameId);
 
+	List<HistoryEntity> getHistoryForPlayer(Long playerId);
+
+	Map<Long, Long> getPlayersPoints(long gameId);
 }
