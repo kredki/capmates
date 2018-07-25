@@ -1,8 +1,8 @@
 package com.capgemini.jstk.capmates.aspect;
 
-import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -11,18 +11,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestAspect {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TestAspect.class);
-	private long startTime;
 
-	@Before("execution(* com.capgemini.jstk.capmates.repository.dao.*.*(..))")
-	public void beforeSearchAllBooks() {
-		startTime = System.currentTimeMillis();
-		LOGGER.info("start time " + startTime);
-	}
-
-	@After("execution(* com.capgemini.jstk.capmates.repository.dao.*.*(..))")
-	public void afterSearchAllBooks() {
-		long endTime = System.currentTimeMillis();
-		long time = endTime - startTime;
-		LOGGER.info("start time= " + startTime + "| end time= " + endTime + "| execution time= " + time);
+	@Around("execution(* com.capgemini.jstk.capmates.repository.dao.*.*(..))")
+	public Object profile(ProceedingJoinPoint pjp) throws Throwable {
+		long start = System.currentTimeMillis();
+		LOGGER.info("Going to call the method.");
+		Object output = pjp.proceed();
+		LOGGER.info("Method execution completed.");
+		long elapsedTime = System.currentTimeMillis() - start;
+		LOGGER.info("Method execution time: " + elapsedTime + " milliseconds.");
+		return output;
 	}
 }
