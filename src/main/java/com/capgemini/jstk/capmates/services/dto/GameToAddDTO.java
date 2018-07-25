@@ -5,11 +5,11 @@ public class GameToAddDTO {
 	private int playerQtyFrom;
 	private int playerQtyTo;
 
-	public GameToAddDTO(String title, int playerQtFrom, int playerQtTo) {
+	public GameToAddDTO(String title, int playerQtyFrom, int playerQtyTo) {
 		super();
 		this.title = title;
-		this.playerQtyFrom = playerQtFrom;
-		this.playerQtyTo = playerQtTo;
+		this.playerQtyFrom = playerQtyFrom;
+		this.playerQtyTo = playerQtyTo;
 	}
 
 	public String getTitle() {

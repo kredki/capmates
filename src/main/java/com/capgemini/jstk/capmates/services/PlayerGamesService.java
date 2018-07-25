@@ -1,6 +1,7 @@
 package com.capgemini.jstk.capmates.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.capgemini.jstk.capmates.repository.dao.BoardGameDAO;
 import com.capgemini.jstk.capmates.repository.dao.PlayerGamesDAO;
 import com.capgemini.jstk.capmates.repository.entities.BoardGameEntity;
+import com.capgemini.jstk.capmates.repository.entities.PlayerBoardGameEntity;
 import com.capgemini.jstk.capmates.services.dto.BoardGameDTO;
+import com.capgemini.jstk.capmates.services.dto.GameToAddDTO;
 
 @Service
 public class PlayerGamesService {
@@ -34,5 +37,21 @@ public class PlayerGamesService {
 		List<Long> gameIds = this.playerGamesDAO.getPlayerGames(playerId);
 		List<BoardGameEntity> games = this.boardGameDAO.getBoardGamesById(gameIds);
 		return mapper.map(games, BoardGameDTO.class);
+	}
+
+	public Optional<BoardGameDTO> addGame(Long playerId, GameToAddDTO gameToAdd) {
+		Optional<BoardGameEntity> game = this.boardGameDAO.getBoardGameByTitle(gameToAdd.getTitle());
+		if (game.isPresent()) {
+			this.playerGamesDAO.addBoardGame(new PlayerBoardGameEntity(playerId, game.get().getId()));
+			return Optional.ofNullable(mapper.map(game, BoardGameDTO.class));
+		} else {
+			Optional<BoardGameEntity> addedGame = this.boardGameDAO
+					.addBoardGame(mapper.map(gameToAdd, BoardGameEntity.class));
+			if (addedGame.isPresent()) {
+				return mapper.map(addedGame.get(), BoardGameDTO.class);
+			} else {
+				return Optional.ofNullable(null);
+			}
+		}
 	}
 }

@@ -70,16 +70,16 @@ public class BoardGameList implements BoardGameDAO {
 	}
 
 	@Override
-	public BoardGameEntity addBoardGame(BoardGameEntity gameToAdd) {
+	public Optional<BoardGameEntity> addBoardGame(BoardGameEntity gameToAdd) {
 		String title = gameToAdd.getTitle();
 		for (BoardGameEntity bg : boardGameList) {
 			if (bg.getTitle().equals(title)) {
-				return null;
+				return Optional.ofNullable(null);
 			}
 		}
 		gameToAdd.setId(this.counter.getAndIncrement());
 		this.boardGameList.add(gameToAdd);
-		return gameToAdd;
+		return Optional.ofNullable(gameToAdd);
 	}
 
 	@Override
