@@ -2,66 +2,54 @@ package com.capgemini.jstk.capmates.repository.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
-import com.capgemini.jstk.capmates.repository.entities.BoardGameEntity;
 import com.capgemini.jstk.capmates.repository.entities.PlayerBoardGameEntity;
-import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 
 @Repository
 @Scope("singleton")
 public class PlayerGamesList implements PlayerGamesDAO {
 	private final List<PlayerBoardGameEntity> playerBoardGamesList;
-	private final PlayerDAO players;
-	private final BoardGameDAO boardGames;
 
-	@Autowired
-	public PlayerGamesList(PlayerDAO players, BoardGameDAO boardGames) {
+	public PlayerGamesList() {
 		super();
 		this.playerBoardGamesList = new ArrayList<>();
-		this.players = players;
-		this.boardGames = boardGames;
 	}
 
 	@PostConstruct
 	private void init() {
-		List<BoardGameEntity> boardGameEntities = boardGames.getBoardGames();
-		for (PlayerEntity player : players.getPlayers()) {
-			this.playerBoardGamesList.add(new PlayerBoardGameEntity(player.getId(), boardGameEntities.get(1).getId()));
-			this.playerBoardGamesList.add(new PlayerBoardGameEntity(player.getId(), boardGameEntities.get(2).getId()));
+		for (int i = 1; i < 6; i++) {
+			this.playerBoardGamesList.add(new PlayerBoardGameEntity(i, 2L));
+			this.playerBoardGamesList.add(new PlayerBoardGameEntity(i, 3L));
 		}
+
 		this.playerBoardGamesList.add(new PlayerBoardGameEntity(1L, 4L));
 		this.playerBoardGamesList.add(new PlayerBoardGameEntity(2L, 4L));
 		this.playerBoardGamesList.add(new PlayerBoardGameEntity(3L, 3L));
 	}
 
 	@Override
-	public List<BoardGameEntity> getPlayerGames(long playerId) {
-		List<BoardGameEntity> result = new ArrayList<>();
-		for (PlayerBoardGameEntity playerBoardGameEntity : this.playerBoardGamesList) {
-			long matchPlayerId = playerBoardGameEntity.getPlayerId();
-			long boardGameId = playerBoardGameEntity.getBoardGameId();
-			if (matchPlayerId == playerId) {
-				result.add(this.boardGames.getBoardGameById(boardGameId).get());
+	public List<Long> getPlayerGames(long playerId) {
+		List<Long> gameIds = this.playerBoardGamesList.stream().filter(x -> x.getPlayerId() == playerId)
+				.map(PlayerBoardGameEntity::getBoardGameId).collect(Collectors.toList());
+		return gameIds;
+	}
+
+	@Override
+	public PlayerBoardGameEntity addBoardGame(PlayerBoardGameEntity boardGameToAdd) {
+		long playerId = boardGameToAdd.getPlayerId();
+		long gameId = boardGameToAdd.getBoardGameId();
+		for (PlayerBoardGameEntity game : this.playerBoardGamesList) {
+			if (game.getPlayerId() == playerId && game.getBoardGameId() == gameId) {
+				return game;
 			}
 		}
-		return result;
-	}
-
-	@Override
-	public BoardGameEntity addBoardGame(Long playerId, BoardGameEntity game) {
-		// todo
-		return null;
-	}
-
-	@Override
-	public BoardGameEntity removeBoardGame(Long playerId, BoardGameEntity game) {
-		// todo
-		return null;
+		this.playerBoardGamesList.add(boardGameToAdd);
+		return boardGameToAdd;
 	}
 }

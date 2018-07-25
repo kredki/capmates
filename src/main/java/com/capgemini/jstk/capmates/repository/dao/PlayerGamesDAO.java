@@ -2,14 +2,12 @@ package com.capgemini.jstk.capmates.repository.dao;
 
 import java.util.List;
 
-import com.capgemini.jstk.capmates.repository.entities.BoardGameEntity;
+import com.capgemini.jstk.capmates.repository.entities.PlayerBoardGameEntity;
 
 public interface PlayerGamesDAO {
 
-	List<BoardGameEntity> getPlayerGames(long playerId);
+	List<Long> getPlayerGames(long playerId);
 
-	BoardGameEntity addBoardGame(Long playerId, BoardGameEntity game);
-
-	BoardGameEntity removeBoardGame(Long playerId, BoardGameEntity game);
+	PlayerBoardGameEntity addBoardGame(PlayerBoardGameEntity boardGameToAdd);
 
 }
