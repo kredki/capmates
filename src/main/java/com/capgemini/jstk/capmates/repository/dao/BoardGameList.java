@@ -81,4 +81,24 @@ public class BoardGameList implements BoardGameDAO {
 		this.boardGameList.add(gameToAdd);
 		return gameToAdd;
 	}
+
+	@Override
+	public List<BoardGameEntity> getBoardGamesById(List<Long> ids) {
+		List<BoardGameEntity> result = new ArrayList<>();
+		for (BoardGameEntity boardGame : boardGameList) {
+			if (isIdOnList(boardGame.getId(), ids)) {
+				result.add(boardGame);
+			}
+		}
+		return result;
+	}
+
+	private boolean isIdOnList(long id, List<Long> ids) {
+		for (Long idToCheck : ids) {
+			if (idToCheck == id) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

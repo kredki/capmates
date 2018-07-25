@@ -17,4 +17,6 @@ public interface BoardGameDAO {
 
 	BoardGameEntity addBoardGame(BoardGameEntity gameToAdd);
 
+	List<BoardGameEntity> getBoardGamesById(List<Long> ids);
+
 }
