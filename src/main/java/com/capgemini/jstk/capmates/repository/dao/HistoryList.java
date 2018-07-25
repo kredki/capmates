@@ -40,8 +40,14 @@ public class HistoryList implements HistoryDAO {
 	}
 
 	@Override
-	public List<HistoryEntity> getHistoryByGameId(long gameId) {
+	public List<HistoryEntity> getHistoryForGame(long gameId) {
 		return this.historyLists.stream().filter(x -> x.getGameId() == gameId).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<HistoryEntity> getHistoryForPlayer(Long playerId, long gameId) {
+		return this.historyLists.stream().filter(x -> x.getPlayerId() == playerId && x.getGameId() == gameId)
+				.collect(Collectors.toList());
 	}
 
 	@Override
