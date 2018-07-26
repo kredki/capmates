@@ -71,7 +71,7 @@ public class HistoryList implements HistoryDAO {
 			} else {
 				value = new Long(playerPoints);
 			}
-			points.put(playerId, playerPoints);
+			points.put(playerId, value);
 		}
 		return points;
 	}
