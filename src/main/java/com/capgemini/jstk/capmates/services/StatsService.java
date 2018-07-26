@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,9 @@ public class StatsService implements Stats {
 		long loss = 0;
 		for (HistoryEntity match : matchHistory) {
 			long points = match.getPoints();
+			if (match.getGameId() != gameId) {
+				continue;
+			}
 			if (points == WIN_POINTS) {
 				wins++;
 			} else {
@@ -51,7 +55,9 @@ public class StatsService implements Stats {
 	public List<HistoryDTO> getPlayerHistory(long playerId) {
 		List<HistoryEntity> playerHistory = this.historyDAO.getHistoryForPlayer(playerId);
 		ModelMapper mapper = new ModelMapper();
-		return mapper.map(playerHistory, HistoryDTO.class);
+		java.lang.reflect.Type targetListType = new TypeToken<List<HistoryDTO>>() {
+		}.getType();
+		return mapper.map(playerHistory, targetListType);
 	}
 
 	private long getRank(long playerId, long gameId) {
