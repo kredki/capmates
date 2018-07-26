@@ -87,6 +87,6 @@ public class AvailabilityHoursList implements AvailabilityHoursDAO {
 				return Optional.ofNullable(ah);
 			}
 		}
-		return Optional.ofNullable(hoursToRemove);
+		return Optional.ofNullable(null);
 	}
 }
