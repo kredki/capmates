@@ -5,6 +5,10 @@ public class GameToAddDTO {
 	private int playerQtyFrom;
 	private int playerQtyTo;
 
+	public GameToAddDTO() {
+		super();
+	}
+
 	public GameToAddDTO(String title, int playerQtyFrom, int playerQtyTo) {
 		super();
 		this.title = title;

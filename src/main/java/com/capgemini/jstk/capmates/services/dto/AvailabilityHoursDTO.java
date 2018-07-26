@@ -8,6 +8,10 @@ public class AvailabilityHoursDTO {
 	private LocalTime toHour;
 	private String comment;
 
+	public AvailabilityHoursDTO() {
+		super();
+	}
+
 	public AvailabilityHoursDTO(long playerId, LocalTime fromHour, LocalTime toHour) {
 		super();
 		this.playerId = playerId;

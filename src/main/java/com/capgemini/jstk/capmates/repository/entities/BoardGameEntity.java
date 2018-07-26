@@ -6,6 +6,10 @@ public class BoardGameEntity {
 	private int playerQtyFrom;
 	private int playerQtyTo;
 
+	public BoardGameEntity() {
+		super();
+	}
+
 	public BoardGameEntity(long id, String title, int playerQtFrom, int playerQtTo) {
 		super();
 		this.id = id;

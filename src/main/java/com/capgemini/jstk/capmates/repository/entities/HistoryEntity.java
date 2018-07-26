@@ -5,6 +5,10 @@ public class HistoryEntity {
 	private long gameId;
 	private long points;
 
+	public HistoryEntity() {
+		super();
+	}
+
 	public HistoryEntity(long playerId, long gameId, long points) {
 		super();
 		this.playerId = playerId;

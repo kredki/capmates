@@ -8,6 +8,10 @@ public class PlayerDTO {
 	private String password;
 	private String motto;
 
+	public PlayerDTO() {
+		super();
+	}
+
 	public PlayerDTO(Long id, String firstName, String lastName, String email, String password, String motto) {
 		super();
 		this.id = id;

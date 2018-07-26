@@ -8,6 +8,10 @@ public class ChallengeDTO {
 	private LocalTime opponentFromHour;
 	private LocalTime opponentToHour;
 
+	public ChallengeDTO() {
+		super();
+	}
+
 	public ChallengeDTO(long challengerId, long opponentId, LocalTime opponentFromHour, LocalTime opponentToHour) {
 		super();
 		this.challengerId = challengerId;

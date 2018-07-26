@@ -8,6 +8,10 @@ public class StatDTO {
 	private long wins;
 	private long loss;
 
+	public StatDTO() {
+		super();
+	}
+
 	public StatDTO(long playerId, long gameId, long rank, long level, long wins, long loss) {
 		super();
 		this.playerId = playerId;

@@ -6,6 +6,10 @@ public class BoardGameDTO {
 	private int playerQtyFrom;
 	private int playerQtyTo;
 
+	public BoardGameDTO() {
+		super();
+	}
+
 	public BoardGameDTO(long id, String title, int playerQtyFrom, int playerQtyTo) {
 		super();
 		this.id = id;

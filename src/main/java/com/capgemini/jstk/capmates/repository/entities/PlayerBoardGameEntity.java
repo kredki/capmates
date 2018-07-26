@@ -4,6 +4,10 @@ public class PlayerBoardGameEntity {
 	long playerId;
 	long boardGameId;
 
+	public PlayerBoardGameEntity() {
+		super();
+	}
+
 	public PlayerBoardGameEntity(long playerId, long boardGameId) {
 		super();
 		this.playerId = playerId;

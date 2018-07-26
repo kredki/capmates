@@ -8,6 +8,9 @@ public class RemovedHoursEntity {
 	private LocalTime toHour;
 	private String comment;
 
+	public RemovedHoursEntity() {
+	}
+
 	public RemovedHoursEntity(long playerId, LocalTime fromHour, LocalTime toHour, String comment) {
 		super();
 		this.playerId = playerId;

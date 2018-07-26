@@ -5,6 +5,10 @@ public class HistoryDTO {
 	private long gameId;
 	private long points;
 
+	public HistoryDTO() {
+		super();
+	}
+
 	public HistoryDTO(long playerId, long gameId, long points) {
 		super();
 		this.playerId = playerId;

@@ -7,6 +7,10 @@ public class PlayerToAddDTO {
 	private String password;
 	private String motto;
 
+	public PlayerToAddDTO() {
+		super();
+	}
+
 	public PlayerToAddDTO(String firstName, String lastName, String email, String password, String motto) {
 		super();
 		this.firstName = firstName;

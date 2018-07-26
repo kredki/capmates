@@ -7,6 +7,10 @@ public class AvailabilityHoursEntity {
 	private LocalTime fromHour;
 	private LocalTime toHour;
 
+	public AvailabilityHoursEntity() {
+		super();
+	}
+
 	public AvailabilityHoursEntity(long playerId, LocalTime fromHour, LocalTime toHour) {
 		super();
 		this.playerId = playerId;

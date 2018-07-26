@@ -8,6 +8,10 @@ public class PlayerEntity {
 	private String password;
 	private String motto;
 
+	public PlayerEntity() {
+		super();
+	}
+
 	public PlayerEntity(Long id, String firstName, String lastName, String email, String password, String motto) {
 		super();
 		this.id = id;
