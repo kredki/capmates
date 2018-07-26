@@ -90,6 +90,7 @@ public class PlayerGamesServiceTest {
 		gamelist.add(game1);
 		gamelist.add(game2);
 		Mockito.when(boardGameDAO.getBoardGames()).thenReturn(gamelist);
+		Mockito.when(boardGameDAO.getBoardGamesById(Mockito.any())).thenReturn(gamelist);
 
 		//when
 		List<BoardGameDTO> games = playerGamesService.getPlayerGames(1L);
@@ -118,7 +119,7 @@ public class PlayerGamesServiceTest {
 		long gameId = 10L;
 		Mockito.when(boardGameDAO.getBoardGameByTitle(title)).thenReturn(Optional.ofNullable(null));
 		BoardGameEntity addedGame = new BoardGameEntity(gameId, title, playerQtyFrom, playerQtyTo);
-		Mockito.when(boardGameDAO.addBoardGame(addedGame)).thenReturn(Optional.ofNullable(addedGame));
+		Mockito.when(boardGameDAO.addBoardGame(Mockito.notNull())).thenReturn(Optional.ofNullable(addedGame));
 
 		//when
 		Optional<BoardGameDTO> game = playerGamesService.addGame(1L, gameToAdd);

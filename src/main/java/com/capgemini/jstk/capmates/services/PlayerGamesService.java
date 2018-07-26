@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +32,18 @@ public class PlayerGamesService implements PlayerGames {
 	@Override
 	public List<BoardGameDTO> getAllGames() {
 		List<BoardGameEntity> games = this.boardGameDAO.getBoardGames();
-		return this.mapper.map(games, BoardGameDTO.class);
+		java.lang.reflect.Type targetListType = new TypeToken<List<BoardGameDTO>>() {
+		}.getType();
+		return this.mapper.map(games, targetListType);
 	}
 
 	@Override
 	public List<BoardGameDTO> getPlayerGames(long playerId) {
 		List<Long> gameIds = this.playerGamesDAO.getPlayerGames(playerId);
 		List<BoardGameEntity> games = this.boardGameDAO.getBoardGamesById(gameIds);
-		return mapper.map(games, BoardGameDTO.class);
+		java.lang.reflect.Type targetListType = new TypeToken<List<BoardGameDTO>>() {
+		}.getType();
+		return mapper.map(games, targetListType);
 	}
 
 	@Override
@@ -51,7 +56,7 @@ public class PlayerGamesService implements PlayerGames {
 			Optional<BoardGameEntity> addedGame = this.boardGameDAO
 					.addBoardGame(mapper.map(gameToAdd, BoardGameEntity.class));
 			if (addedGame.isPresent()) {
-				return mapper.map(addedGame.get(), BoardGameDTO.class);
+				return Optional.ofNullable(mapper.map(addedGame.get(), BoardGameDTO.class));
 			} else {
 				return Optional.ofNullable(null);
 			}
