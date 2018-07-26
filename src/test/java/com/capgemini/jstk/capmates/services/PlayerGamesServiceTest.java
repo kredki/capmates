@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,11 +50,6 @@ public class PlayerGamesServiceTest {
 	public static void init() {
 		game1 = new BoardGameEntity(1L, "title1", 2, 3);
 		game2 = new BoardGameEntity(2L, "title2", 4, 6);
-	}
-
-	@Before
-	public void setUp() {
-		//todo
 	}
 
 	@Test
@@ -117,6 +111,31 @@ public class PlayerGamesServiceTest {
 		int playerQtyTo = game1.getPlayerQtyTo();
 		GameToAddDTO gameToAdd = new GameToAddDTO(title, playerQtyFrom, playerQtyTo);
 		long gameId = 10L;
+		Mockito.when(boardGameDAO.getBoardGameByTitle(title)).thenReturn(Optional.ofNullable(null));
+		BoardGameEntity addedGame = new BoardGameEntity(gameId, title, playerQtyFrom, playerQtyTo);
+		Mockito.when(boardGameDAO.addBoardGame(Mockito.notNull())).thenReturn(Optional.ofNullable(addedGame));
+
+		//when
+		Optional<BoardGameDTO> game = playerGamesService.addGame(1L, gameToAdd);
+
+		//then
+		assertTrue(game.isPresent());
+		BoardGameDTO returnedGame1 = game.get();
+		assertThat(returnedGame1.getId()).isEqualTo(gameId);
+		assertThat(returnedGame1.getTitle()).isEqualTo(title);
+		assertThat(returnedGame1.getPlayerQtyFrom()).isEqualTo(playerQtyFrom);
+		assertThat(returnedGame1.getPlayerQtyTo()).isEqualTo(playerQtyTo);
+	}
+
+	@Test
+	public void shouldAddAlreadyExistingGame() {
+		//given
+		long gameId = 10L;
+		String title = game1.getTitle();
+		int playerQtyFrom = game1.getPlayerQtyFrom();
+		int playerQtyTo = game1.getPlayerQtyTo();
+		BoardGameDTO gameToAdd = new BoardGameDTO(gameId, title, playerQtyFrom, playerQtyTo);
+		;
 		Mockito.when(boardGameDAO.getBoardGameByTitle(title)).thenReturn(Optional.ofNullable(null));
 		BoardGameEntity addedGame = new BoardGameEntity(gameId, title, playerQtyFrom, playerQtyTo);
 		Mockito.when(boardGameDAO.addBoardGame(Mockito.notNull())).thenReturn(Optional.ofNullable(addedGame));
