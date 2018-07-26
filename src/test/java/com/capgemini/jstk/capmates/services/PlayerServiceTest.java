@@ -14,8 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.capgemini.jstk.capmates.mappers.PlayerMapper;
 import com.capgemini.jstk.capmates.repository.dao.PlayerDAO;
@@ -23,23 +25,31 @@ import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 import com.capgemini.jstk.capmates.services.dto.PlayerDTO;
 import com.capgemini.jstk.capmates.services.dto.PlayerToAddDTO;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration
 public class PlayerServiceTest {
 	@Mock
-	private PlayerMapper playerMapperMock;
+	private static PlayerMapper playerMapperMock;
 
 	@Mock
-	private PlayerDAO playerDAOMock;
+	private static PlayerDAO playerDAOMock;
 
 	@InjectMocks
-	private Player playerService;
+	private PlayerService playerService;
 
 	private static PlayerEntity playerEntity;
 	private static PlayerDTO playerDTO;
 	private static PlayerToAddDTO playerToAddDTO;
 	private static PlayerDTO nonExistingPlayerDTO;
 	private static PlayerEntity nonExistingplPlayerEntity;
+
+	@Configuration
+	static class PlayerServiceTestContextConfiguration {
+		@Bean
+		public PlayerService playerService() {
+			return new PlayerService(playerMapperMock, playerDAOMock);
+		}
+	}
 
 	@BeforeClass
 	public static void init() {

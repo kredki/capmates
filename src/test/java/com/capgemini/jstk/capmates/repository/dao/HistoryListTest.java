@@ -54,7 +54,7 @@ public class HistoryListTest {
 	}
 
 	@Test
-	public void shouldReturnHistoryForPlayerOfGeme() {
+	public void shouldReturnHistoryForPlayerOfGame() {
 		//when
 		List<HistoryEntity> games = historyRepository.getHistoryForPlayer(3L, 3L);
 
