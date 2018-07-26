@@ -46,7 +46,7 @@ public class PlayerGamesService implements PlayerGames {
 		Optional<BoardGameEntity> game = this.boardGameDAO.getBoardGameByTitle(gameToAdd.getTitle());
 		if (game.isPresent()) {
 			this.playerGamesDAO.addBoardGame(new PlayerBoardGameEntity(playerId, game.get().getId()));
-			return Optional.ofNullable(mapper.map(game, BoardGameDTO.class));
+			return Optional.ofNullable(mapper.map(game.get(), BoardGameDTO.class));
 		} else {
 			Optional<BoardGameEntity> addedGame = this.boardGameDAO
 					.addBoardGame(mapper.map(gameToAdd, BoardGameEntity.class));

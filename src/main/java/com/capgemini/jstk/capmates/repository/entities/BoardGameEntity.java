@@ -10,12 +10,12 @@ public class BoardGameEntity {
 		super();
 	}
 
-	public BoardGameEntity(long id, String title, int playerQtFrom, int playerQtTo) {
+	public BoardGameEntity(long id, String title, int playerQtyFrom, int playerQtyTo) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.playerQtyFrom = playerQtFrom;
-		this.playerQtyTo = playerQtTo;
+		this.playerQtyFrom = playerQtyFrom;
+		this.playerQtyTo = playerQtyTo;
 	}
 
 	public long getId() {
@@ -38,16 +38,16 @@ public class BoardGameEntity {
 		return playerQtyFrom;
 	}
 
-	public void setPlayerQtyFrom(int playerQtFrom) {
-		this.playerQtyFrom = playerQtFrom;
+	public void setPlayerQtyFrom(int playerQtyFrom) {
+		this.playerQtyFrom = playerQtyFrom;
 	}
 
 	public int getPlayerQtyTo() {
 		return playerQtyTo;
 	}
 
-	public void setPlayerQtyTo(int playerQtTo) {
-		this.playerQtyTo = playerQtTo;
+	public void setPlayerQtyTo(int playerQtyTo) {
+		this.playerQtyTo = playerQtyTo;
 	}
 
 }
