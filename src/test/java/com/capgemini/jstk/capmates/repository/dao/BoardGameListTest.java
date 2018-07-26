@@ -9,16 +9,26 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.capgemini.jstk.capmates.repository.entities.BoardGameEntity;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration
 public class BoardGameListTest {
 	@Autowired
 	private BoardGameList boardGameRepository;
+
+	@Configuration
+	static class BoardGameListTestContextConfiguration {
+		@Bean
+		public BoardGameList boardGameList() {
+			return new BoardGameList();
+		}
+	}
 
 	@Test
 	public void shouldReturnGamesList() {
