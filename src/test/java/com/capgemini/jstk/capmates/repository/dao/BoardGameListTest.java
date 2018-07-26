@@ -18,7 +18,7 @@ import com.capgemini.jstk.capmates.repository.entities.BoardGameEntity;
 @SpringBootTest
 public class BoardGameListTest {
 	@Autowired
-	private BoardGameDAO boardGameRepository;
+	private BoardGameList boardGameRepository;
 
 	@Test
 	public void shouldReturnGamesList() {
@@ -80,7 +80,7 @@ public class BoardGameListTest {
 		BoardGameEntity gameToUpdate = new BoardGameEntity(3, "Pax Renaissance2", 2, 4);
 
 		// when
-		BoardGameEntity game = this.boardGameRepository.addBoardGame(gameToUpdate);
+		BoardGameEntity game = this.boardGameRepository.addBoardGame(gameToUpdate).get();
 
 		// then
 		assertEquals(5, game.getId());

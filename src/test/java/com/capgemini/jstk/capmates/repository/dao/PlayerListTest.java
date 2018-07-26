@@ -18,7 +18,7 @@ import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 @SpringBootTest
 public class PlayerListTest {
 	@Autowired
-	private PlayerDAO playerRepository;
+	private PlayerList playerRepository;
 
 	@Test
 	public void shouldReturnPlayersList() {
@@ -26,7 +26,7 @@ public class PlayerListTest {
 		List<PlayerEntity> players = playerRepository.getPlayers();
 
 		// then
-		assertThat(players.size()).isGreaterThanOrEqualTo(4);
+		assertThat(players.size()).isGreaterThanOrEqualTo(5);
 	}
 
 	@Test
