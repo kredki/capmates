@@ -1,6 +1,7 @@
 package com.capgemini.jstk.capmates.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalTime;
@@ -22,6 +23,7 @@ import com.capgemini.jstk.capmates.mappers.AvailabilityHoursMapper;
 import com.capgemini.jstk.capmates.repository.dao.AvailabilityHoursDAO;
 import com.capgemini.jstk.capmates.repository.dao.RemovedHourDAO;
 import com.capgemini.jstk.capmates.repository.entities.AvailabilityHoursEntity;
+import com.capgemini.jstk.capmates.repository.entities.RemovedHoursEntity;
 import com.capgemini.jstk.capmates.services.dto.AvailabilityHoursDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,6 +41,7 @@ public class AvailabilityHoursServiceTest {
 
 	private static AvailabilityHoursEntity availabilityHoursEntity;
 	private static AvailabilityHoursDTO availabilityHoursDTO;
+	private static RemovedHoursEntity removedHoursEntity;
 
 	@Configuration
 	static class AvailabilityHoursServiceTestContextConfiguration {
@@ -56,6 +59,7 @@ public class AvailabilityHoursServiceTest {
 		LocalTime toHour = LocalTime.parse("12:00");
 		availabilityHoursEntity = new AvailabilityHoursEntity(playerId, fromHour, toHour);
 		availabilityHoursDTO = new AvailabilityHoursDTO(playerId, fromHour, toHour);
+		removedHoursEntity = new RemovedHoursEntity(playerId, fromHour, toHour, "comment");
 	}
 
 	@Before
@@ -64,12 +68,45 @@ public class AvailabilityHoursServiceTest {
 		Mockito.when(availabilityHoursMapperMock.mapToEntity(availabilityHoursDTO)).thenReturn(availabilityHoursEntity);
 		Mockito.when(availabilityHoursDAOMock.addAvailabilityHours(availabilityHoursEntity))
 				.thenReturn(Optional.ofNullable(availabilityHoursEntity));
+		Mockito.when(availabilityHoursDAOMock.removeAvailabilityHours(availabilityHoursEntity))
+				.thenReturn(Optional.ofNullable(availabilityHoursEntity));
 	}
 
 	@Test
 	public void shouldAddHours() {
 		//when
 		Optional<AvailabilityHoursDTO> hours = availabilityHoursService.addAvailabilityHours(availabilityHoursDTO);
+
+		//then
+		assertTrue(hours.isPresent());
+		AvailabilityHoursDTO hoursDTO = hours.get();
+		assertThat(hoursDTO.getPlayerId()).isEqualTo(availabilityHoursDTO.getPlayerId());
+		assertThat(hoursDTO.getFromHour()).isEqualTo(availabilityHoursDTO.getFromHour());
+		assertThat(hoursDTO.getToHour()).isEqualTo(availabilityHoursDTO.getToHour());
+	}
+
+	@Test
+	public void shouldNotAddHours() {
+		//given
+		Mockito.when(availabilityHoursDAOMock.addAvailabilityHours(availabilityHoursEntity))
+				.thenReturn(Optional.ofNullable(null));
+
+		//when
+		Optional<AvailabilityHoursDTO> hours = availabilityHoursService.addAvailabilityHours(availabilityHoursDTO);
+
+		//then
+		assertFalse(hours.isPresent());
+	}
+
+	@Test
+	public void shouldRemoveHours() {
+		//given
+		Mockito.when(removedHourDAOMock.addRemovedHour(Mockito.any()))
+				.thenReturn(Optional.ofNullable(removedHoursEntity));
+
+		//when
+		Optional<AvailabilityHoursDTO> hours = availabilityHoursService.removeAvailabilityHours(availabilityHoursDTO,
+				"comment");
 
 		//then
 		assertTrue(hours.isPresent());

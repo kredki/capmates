@@ -55,7 +55,7 @@ public class AvailabilityHoursService implements AvailabilityHours {
 			ModelMapper mapper = new ModelMapper();
 			Optional<RemovedHoursEntity> result = removedHourDAO
 					.addRemovedHour(mapper.map(removedHoursDTO, RemovedHoursEntity.class));
-			return Optional.ofNullable(mapper.map(result, AvailabilityHoursDTO.class));
+			return Optional.ofNullable(mapper.map(result.get(), AvailabilityHoursDTO.class));
 		} else {
 			return Optional.ofNullable(null);
 		}
