@@ -19,7 +19,7 @@ import com.capgemini.jstk.capmates.services.dto.AvailabilityHoursDTO;
 import com.capgemini.jstk.capmates.services.dto.ChallengeDTO;
 
 @Service
-public class AvailabilityHoursService {
+public class AvailabilityHoursService implements AvailabilityHours {
 	private static final int HALF_OF_MAX_MATCHED_HOURS = 20;
 	private static final int MAX_MATCHED_HOURS = 40;
 	private AvailabilityHoursDAO availabilityHoursDAO;
@@ -35,6 +35,7 @@ public class AvailabilityHoursService {
 		this.removedHourDAO = removedHourDAO;
 	}
 
+	@Override
 	public Optional<AvailabilityHoursDTO> addAvailabilityHours(AvailabilityHoursDTO hoursToAdd) {
 		Optional<AvailabilityHoursEntity> addedHours = this.availabilityHoursDAO
 				.addAvailabilityHours(availabilityHoursMapper.mapToEntity(hoursToAdd));
@@ -45,6 +46,7 @@ public class AvailabilityHoursService {
 		}
 	}
 
+	@Override
 	public Optional<AvailabilityHoursDTO> removeAvailabilityHours(AvailabilityHoursDTO hoursToRemove, String comment) {
 		Optional<AvailabilityHoursEntity> removedHours = this.availabilityHoursDAO
 				.removeAvailabilityHours(availabilityHoursMapper.mapToEntity(hoursToRemove));
@@ -59,6 +61,7 @@ public class AvailabilityHoursService {
 		}
 	}
 
+	@Override
 	public List<ChallengeDTO> matchAvailability(long playerId, LocalTime minOverlapingTime) {
 		List<AvailabilityHoursEntity> playerHours = this.availabilityHoursDAO.getAvailabilityHoursByPlayerId(playerId);
 		List<AvailabilityHoursEntity> otherPlayersHours = this.availabilityHoursDAO

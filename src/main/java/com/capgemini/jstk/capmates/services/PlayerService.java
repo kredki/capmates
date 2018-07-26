@@ -14,7 +14,7 @@ import com.capgemini.jstk.capmates.services.dto.PlayerDTO;
 import com.capgemini.jstk.capmates.services.dto.PlayerToAddDTO;
 
 @Service
-public class PlayerService {
+public class PlayerService implements Player {
 	PlayerMapper playerMapper;
 	PlayerDAO playerDAO;
 
@@ -25,6 +25,7 @@ public class PlayerService {
 		this.playerDAO = playerDAO;
 	}
 
+	@Override
 	public Optional<PlayerDTO> updatePlayer(PlayerDTO playerToUpdate) {
 		PlayerEntity playerEntity = this.playerMapper.mapToEntity(playerToUpdate);
 		if (this.playerDAO.updatePlayer(playerEntity) != null) {
@@ -35,6 +36,7 @@ public class PlayerService {
 		}
 	}
 
+	@Override
 	public Optional<PlayerDTO> addPlayer(PlayerToAddDTO playerToAddDTO) {
 		PlayerEntity playerEntity = this.playerMapper.mapToEntity(0L, playerToAddDTO);
 		if (this.playerDAO.addPlayer(playerEntity) != null) {
@@ -45,6 +47,7 @@ public class PlayerService {
 		}
 	}
 
+	@Override
 	public List<PlayerDTO> getPlayers() {
 		List<PlayerEntity> players = this.playerDAO.getPlayers();
 		return players.stream().map(x -> playerMapper.mapToDTO(x)).collect(Collectors.toList());

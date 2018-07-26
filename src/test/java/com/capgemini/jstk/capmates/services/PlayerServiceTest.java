@@ -33,7 +33,7 @@ public class PlayerServiceTest {
 	private PlayerDAO playerDAOMock;
 
 	@InjectMocks
-	private PlayerService playerService;
+	private Player playerService;
 
 	private static PlayerEntity playerEntity;
 	private static PlayerDTO playerDTO;

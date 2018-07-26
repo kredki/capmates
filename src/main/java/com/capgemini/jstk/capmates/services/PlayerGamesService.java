@@ -15,7 +15,7 @@ import com.capgemini.jstk.capmates.services.dto.BoardGameDTO;
 import com.capgemini.jstk.capmates.services.dto.GameToAddDTO;
 
 @Service
-public class PlayerGamesService {
+public class PlayerGamesService implements PlayerGames {
 	BoardGameDAO boardGameDAO;
 	PlayerGamesDAO playerGamesDAO;
 	ModelMapper mapper;
@@ -28,17 +28,20 @@ public class PlayerGamesService {
 		this.mapper = new ModelMapper();
 	}
 
+	@Override
 	public List<BoardGameDTO> getAllGames() {
 		List<BoardGameEntity> games = this.boardGameDAO.getBoardGames();
 		return this.mapper.map(games, BoardGameDTO.class);
 	}
 
+	@Override
 	public List<BoardGameDTO> getPlayerGames(long playerId) {
 		List<Long> gameIds = this.playerGamesDAO.getPlayerGames(playerId);
 		List<BoardGameEntity> games = this.boardGameDAO.getBoardGamesById(gameIds);
 		return mapper.map(games, BoardGameDTO.class);
 	}
 
+	@Override
 	public Optional<BoardGameDTO> addGame(Long playerId, GameToAddDTO gameToAdd) {
 		Optional<BoardGameEntity> game = this.boardGameDAO.getBoardGameByTitle(gameToAdd.getTitle());
 		if (game.isPresent()) {
@@ -55,6 +58,7 @@ public class PlayerGamesService {
 		}
 	}
 
+	@Override
 	public Optional<BoardGameDTO> addGame(Long playerId, BoardGameDTO gameToAdd) {
 		Optional<BoardGameEntity> game = this.boardGameDAO.getBoardGameById(gameToAdd.getId());
 		if (game.isPresent()) {

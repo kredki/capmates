@@ -17,7 +17,7 @@ import com.capgemini.jstk.capmates.services.dto.HistoryDTO;
 import com.capgemini.jstk.capmates.services.dto.StatDTO;
 
 @Service
-public class StatsService {
+public class StatsService implements Stats {
 	private static final long WIN_POINTS = 10;
 	private HistoryDAO historyDAO;
 
@@ -27,6 +27,7 @@ public class StatsService {
 		this.historyDAO = historyDAO;
 	}
 
+	@Override
 	public StatDTO getStat(long playerId, long gameId) {
 		List<HistoryEntity> matchHistory = this.historyDAO.getHistoryForPlayer(playerId, gameId);
 		long rank = 0;
@@ -46,6 +47,7 @@ public class StatsService {
 		return new StatDTO(playerId, gameId, rank, level, wins, loss);
 	}
 
+	@Override
 	public List<HistoryDTO> getPlayerHistory(long playerId) {
 		List<HistoryEntity> playerHistory = this.historyDAO.getHistoryForPlayer(playerId);
 		ModelMapper mapper = new ModelMapper();
