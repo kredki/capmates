@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -25,6 +27,7 @@ import com.capgemini.jstk.capmates.repository.dao.RemovedHourDAO;
 import com.capgemini.jstk.capmates.repository.entities.AvailabilityHoursEntity;
 import com.capgemini.jstk.capmates.repository.entities.RemovedHoursEntity;
 import com.capgemini.jstk.capmates.services.dto.AvailabilityHoursDTO;
+import com.capgemini.jstk.capmates.services.dto.ChallengeDTO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
@@ -114,5 +117,47 @@ public class AvailabilityHoursServiceTest {
 		assertThat(hoursDTO.getPlayerId()).isEqualTo(availabilityHoursDTO.getPlayerId());
 		assertThat(hoursDTO.getFromHour()).isEqualTo(availabilityHoursDTO.getFromHour());
 		assertThat(hoursDTO.getToHour()).isEqualTo(availabilityHoursDTO.getToHour());
+	}
+
+	@Test
+	public void shouldreturnedMatchedHours() {
+		//given
+		long player1Id = 1L;
+		long player2Id = 2L;
+		long player3Id = 3L;
+		long player4Id = 4L;
+		List<AvailabilityHoursEntity> player1List = new ArrayList<>();
+		player1List.add(new AvailabilityHoursEntity(player1Id, LocalTime.parse("10:00"), LocalTime.parse("12:00")));
+		player1List.add(new AvailabilityHoursEntity(player1Id, LocalTime.parse("08:00"), LocalTime.parse("08:20")));
+		Mockito.when(availabilityHoursDAOMock.getAvailabilityHoursByPlayerId(1L)).thenReturn(player1List);
+
+		List<AvailabilityHoursEntity> otherPlayersList = new ArrayList<>();
+		otherPlayersList
+				.add(new AvailabilityHoursEntity(player2Id, LocalTime.parse("10:00"), LocalTime.parse("11:00")));
+
+		otherPlayersList
+				.add(new AvailabilityHoursEntity(player2Id, LocalTime.parse("08:00"), LocalTime.parse("08:20")));
+
+		otherPlayersList
+				.add(new AvailabilityHoursEntity(player3Id, LocalTime.parse("07:00"), LocalTime.parse("07:30")));
+
+		otherPlayersList
+				.add(new AvailabilityHoursEntity(player3Id, LocalTime.parse("10:00"), LocalTime.parse("10:30")));
+
+		otherPlayersList
+				.add(new AvailabilityHoursEntity(player4Id, LocalTime.parse("20:00"), LocalTime.parse("22:00")));
+
+		Mockito.when(availabilityHoursDAOMock.getAvailabilityHoursOfOtherPlayers(player1Id))
+				.thenReturn(otherPlayersList);
+
+		//when
+		List<ChallengeDTO> challenges = availabilityHoursService.matchAvailability(player1Id, LocalTime.parse("00:30"));
+
+		//then
+		assertThat(challenges.size()).isEqualTo(2);
+		ChallengeDTO challenge1 = challenges.get(0);
+		ChallengeDTO challenge2 = challenges.get(1);
+		assertThat(challenge1.getOpponentId()).isEqualTo(2L);
+		assertThat(challenge2.getOpponentId()).isEqualTo(3L);
 	}
 }
