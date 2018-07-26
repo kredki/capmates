@@ -54,4 +54,18 @@ public class PlayerGamesService {
 			}
 		}
 	}
+
+	public Optional<BoardGameDTO> addGame(Long playerId, BoardGameDTO gameToAdd) {
+		Optional<BoardGameEntity> game = this.boardGameDAO.getBoardGameById(gameToAdd.getId());
+		if (game.isPresent()) {
+			this.playerGamesDAO.addBoardGame(new PlayerBoardGameEntity(playerId, game.get().getId()));
+			return Optional.ofNullable(mapper.map(game, BoardGameDTO.class));
+		} else {
+			Optional<BoardGameDTO> addedGame = addGame(playerId, mapper.map(gameToAdd, GameToAddDTO.class));
+			if (addedGame.isPresent()) {
+				return Optional.ofNullable(addedGame.get());
+			}
+		}
+		return Optional.ofNullable(null);
+	}
 }
