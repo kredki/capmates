@@ -10,6 +10,8 @@ public interface PlayerGames {
 
 	List<BoardGameDTO> getAllGames();
 
+	Optional<BoardGameDTO> getGame(long gameId);
+
 	List<BoardGameDTO> getPlayerGames(long playerId);
 
 	Optional<BoardGameDTO> addGame(Long playerId, GameToAddDTO gameToAdd);

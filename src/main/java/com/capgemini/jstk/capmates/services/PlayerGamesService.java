@@ -77,4 +77,13 @@ public class PlayerGamesService implements PlayerGames {
 		}
 		return Optional.ofNullable(null);
 	}
+
+	@Override
+	public Optional<BoardGameDTO> getGame(long gameId) {
+		Optional<BoardGameEntity> game = this.boardGameDAO.getBoardGameById(gameId);
+		if (game.isPresent()) {
+			return Optional.ofNullable(mapper.map(game.get(), BoardGameDTO.class));
+		}
+		return Optional.ofNullable(null);
+	}
 }
