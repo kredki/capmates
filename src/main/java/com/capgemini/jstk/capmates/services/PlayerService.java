@@ -52,4 +52,13 @@ public class PlayerService implements Player {
 		List<PlayerEntity> players = this.playerDAO.getPlayers();
 		return players.stream().map(x -> playerMapper.mapToDTO(x)).collect(Collectors.toList());
 	}
+
+	@Override
+	public Optional<PlayerDTO> getPlayer(long id) {
+		Optional<PlayerEntity> player = this.playerDAO.getPlayerById(id);
+		if (player.isPresent()) {
+			return Optional.ofNullable(playerMapper.mapToDTO(player.get()));
+		}
+		return Optional.ofNullable(null);
+	}
 }

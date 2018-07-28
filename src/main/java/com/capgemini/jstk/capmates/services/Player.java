@@ -14,4 +14,6 @@ public interface Player {
 
 	List<PlayerDTO> getPlayers();
 
+	Optional<PlayerDTO> getPlayer(long id);
+
 }

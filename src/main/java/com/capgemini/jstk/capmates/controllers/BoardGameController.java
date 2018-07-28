@@ -12,22 +12,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.capgemini.jstk.capmates.services.Player;
 import com.capgemini.jstk.capmates.services.PlayerGames;
 import com.capgemini.jstk.capmates.services.dto.BoardGameDTO;
 
 @Controller
 @ResponseBody
-@RequestMapping(value = "/games")
+@RequestMapping
 public class BoardGameController {
 	@Autowired
 	private PlayerGames playerGamesService;
+	@Autowired
+	private Player playerService;
 
-	@GetMapping(value = "/")
+	@GetMapping(value = "/games")
 	public ResponseEntity<List<BoardGameDTO>> getAllGames() {
 		return ResponseEntity.ok(playerGamesService.getAllGames());
 	}
 
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/games/{id}")
 	public ResponseEntity<BoardGameDTO> getGame(@PathVariable("id") long gameId) {
 		Optional<BoardGameDTO> game = playerGamesService.getGame(gameId);
 		if (game.isPresent()) {
@@ -35,5 +38,13 @@ public class BoardGameController {
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
+	}
+
+	@GetMapping(value = "/player/{id}/games")
+	public ResponseEntity<List<BoardGameDTO>> getPlayerGames(@PathVariable("id") long playerId) {
+		if (!playerService.getPlayer(playerId).isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+		return ResponseEntity.ok(playerGamesService.getPlayerGames(playerId));
 	}
 }
