@@ -8,7 +8,7 @@ import com.capgemini.jstk.capmates.services.dto.GameToAddDTO;
 
 public interface PlayerGames {
 
-	List<BoardGameDTO> getAllGames();
+	List<BoardGameDTO> getAllGames(String title, int playerQtyFrom, int playerQtyTo);
 
 	Optional<BoardGameDTO> getGame(long gameId);
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.capgemini.jstk.capmates.services.Player;
@@ -29,8 +30,11 @@ public class BoardGameController {
 	private Player playerService;
 
 	@GetMapping(value = "/games")
-	public ResponseEntity<List<BoardGameDTO>> getAllGames() {
-		return ResponseEntity.ok(playerGamesService.getAllGames());
+	public ResponseEntity<List<BoardGameDTO>> getAllGames(
+			@RequestParam(value = "title", defaultValue = "") String title,
+			@RequestParam(value = "playerQtyFrom", defaultValue = "0") int playerQtyFrom,
+			@RequestParam(value = "playerQtyTo", defaultValue = "2147483647") int playerQtyTo) {
+		return ResponseEntity.ok(playerGamesService.getAllGames(title, playerQtyFrom, playerQtyTo));
 	}
 
 	@GetMapping(value = "/games/{id}")

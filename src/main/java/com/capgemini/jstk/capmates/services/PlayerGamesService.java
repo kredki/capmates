@@ -30,7 +30,7 @@ public class PlayerGamesService implements PlayerGames {
 	}
 
 	@Override
-	public List<BoardGameDTO> getAllGames() {
+	public List<BoardGameDTO> getAllGames(String title, int playerQtyFrom, int playerQtyTo) {
 		List<BoardGameEntity> games = this.boardGameDAO.getBoardGames();
 		java.lang.reflect.Type targetListType = new TypeToken<List<BoardGameDTO>>() {
 		}.getType();
