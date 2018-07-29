@@ -9,12 +9,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.capgemini.jstk.capmates.services.Player;
 import com.capgemini.jstk.capmates.services.PlayerGames;
 import com.capgemini.jstk.capmates.services.dto.BoardGameDTO;
+import com.capgemini.jstk.capmates.services.dto.GameToAddDTO;
 
 @Controller
 @ResponseBody
@@ -46,5 +49,16 @@ public class BoardGameController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 		return ResponseEntity.ok(playerGamesService.getPlayerGames(playerId));
+	}
+
+	@PostMapping(value = "/player/{id}/games")
+	public ResponseEntity<BoardGameDTO> addPlayerGame(@PathVariable("id") long playerId,
+			@RequestBody GameToAddDTO gameToAdd) {
+		Optional<BoardGameDTO> addedGame = playerGamesService.addGame(playerId, gameToAdd);
+		if (addedGame.isPresent()) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(addedGame.get());
+		} else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
 	}
 }
