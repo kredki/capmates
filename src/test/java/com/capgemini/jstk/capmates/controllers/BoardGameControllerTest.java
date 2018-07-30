@@ -32,6 +32,8 @@ import com.capgemini.jstk.capmates.services.PlayerGames;
 import com.capgemini.jstk.capmates.services.dto.BoardGameDTO;
 import com.capgemini.jstk.capmates.services.dto.GameToAddDTO;
 import com.capgemini.jstk.capmates.services.dto.PlayerDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = CapmatesApplication.class)
@@ -168,17 +170,29 @@ public class BoardGameControllerTest {
 		long gameId = 1L;
 		final BoardGameDTO returnedGame = new BoardGameDTO(gameId, title, playerQtyFrom, playerQtyTo);
 		long playerId = 1L;
-		String gameToAddJson = "{\"title\":\"title\",\"playerQtyFrom\":1, \"playerQtyTo\":2\"]}";
+		String gameToAddJson = "{\"title\":\"title\",\"playerQtyFrom\":1, \"playerQtyTo\":2}";
 
-		Mockito.when(playerGamesService.addGame(playerId, gameToAdd)).thenReturn(Optional.ofNullable(returnedGame));
+		Mockito.when(playerGamesService.addGame(Mockito.anyLong(), Mockito.any(GameToAddDTO.class)))
+				.thenReturn(Optional.ofNullable(returnedGame));
 		Mockito.when(playerService.getPlayer(playerId)).thenReturn(Optional.ofNullable(new PlayerDTO()));
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+
+			gameToAddJson = mapper.writeValueAsString(gameToAdd);
+			System.out.println("jsonString = " + gameToAddJson);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// when
-		ResultActions resultActions = mockMvc.perform(post("/player/1/games").accept(MediaType.APPLICATION_JSON)
-				.content(gameToAddJson).contentType(MediaType.APPLICATION_JSON));
+		ResultActions resultActions = mockMvc
+				.perform(post("/player/1/games").content(gameToAddJson).contentType(MediaType.APPLICATION_JSON));
+				//ResultActions resultActions = mockMvc.perform(post("/player/1/games").accept(MediaType.APPLICATION_JSON)
+				//		.content(gameToAddJson).contentType(MediaType.APPLICATION_JSON));
 
 		// then
-		resultActions.andExpect(status().isOk()).andExpect(jsonPath("$.id").value("1"))
+		resultActions.andExpect(status().isCreated()).andExpect(jsonPath("$.id").value("1"))
 				.andExpect(jsonPath("$.title").value("title")).andExpect(jsonPath("$.playerQtyFrom").value("1"))
 				.andExpect(jsonPath("$.playerQtyTo").value("2"));
 	}
