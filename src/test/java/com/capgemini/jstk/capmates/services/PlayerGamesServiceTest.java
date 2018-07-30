@@ -61,7 +61,7 @@ public class PlayerGamesServiceTest {
 		Mockito.when(boardGameDAO.getBoardGames()).thenReturn(gamelist);
 
 		//when
-		List<BoardGameDTO> games = playerGamesService.getAllGames();
+		List<BoardGameDTO> games = playerGamesService.getAllGames("", 0, Integer.MAX_VALUE);
 
 		//then
 		assertThat(games.size()).isEqualTo(2);

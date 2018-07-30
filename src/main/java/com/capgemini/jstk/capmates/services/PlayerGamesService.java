@@ -1,7 +1,9 @@
 package com.capgemini.jstk.capmates.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -31,7 +33,12 @@ public class PlayerGamesService implements PlayerGames {
 
 	@Override
 	public List<BoardGameDTO> getAllGames(String title, int playerQtyFrom, int playerQtyTo) {
-		List<BoardGameEntity> games = this.boardGameDAO.getBoardGames();
+		List<BoardGameEntity> returnedGames = this.boardGameDAO.getBoardGames();
+		List<BoardGameEntity> games = new ArrayList<>();
+		games = returnedGames.stream()
+				.filter(x -> x.getTitle().toLowerCase().contains(title.toLowerCase())
+						&& x.getPlayerQtyFrom() >= playerQtyFrom && x.getPlayerQtyTo() <= playerQtyTo)
+				.collect(Collectors.toList());
 		java.lang.reflect.Type targetListType = new TypeToken<List<BoardGameDTO>>() {
 		}.getType();
 		return this.mapper.map(games, targetListType);
