@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import com.capgemini.jstk.capmates.exceptions.NoSuchIndexException;
 import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 
 @Repository
@@ -49,7 +50,7 @@ public class PlayerList implements PlayerDAO {
 				return Optional.ofNullable(player);
 			}
 		}
-		return Optional.ofNullable(null);
+		throw new NoSuchIndexException("No player of index " + id);
 	}
 
 	@Override

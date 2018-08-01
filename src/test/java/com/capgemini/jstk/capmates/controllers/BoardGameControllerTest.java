@@ -188,8 +188,6 @@ public class BoardGameControllerTest {
 		// when
 		ResultActions resultActions = mockMvc
 				.perform(post("/player/1/games").content(gameToAddJson).contentType(MediaType.APPLICATION_JSON));
-				//ResultActions resultActions = mockMvc.perform(post("/player/1/games").accept(MediaType.APPLICATION_JSON)
-				//		.content(gameToAddJson).contentType(MediaType.APPLICATION_JSON));
 
 		// then
 		resultActions.andExpect(status().isCreated()).andExpect(jsonPath("$.id").value("1"))
