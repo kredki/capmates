@@ -4,14 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.capgemini.jstk.capmates.exceptions.NoSuchIndexException;
 import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,6 +20,11 @@ import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 public class PlayerListTest {
 	@Autowired
 	private PlayerList playerRepository;
+
+	@Before
+	public void setup() {
+		playerRepository.reset();
+	}
 
 	@Test
 	public void shouldReturnPlayersList() {
@@ -43,7 +49,7 @@ public class PlayerListTest {
 		assertEquals("motto", player.getMotto());
 	}
 
-	@Test(expected = NoSuchElementException.class)
+	@Test(expected = NoSuchIndexException.class)
 	public void shouldThrowException() {
 		// when
 		playerRepository.getPlayerById(20).get();

@@ -40,4 +40,9 @@ public class RemovedHoursList implements RemovedHourDAO {
 		this.removedHoursList.add(hourToAdd);
 		return Optional.ofNullable(hourToAdd);
 	}
+
+	public void reset() {
+		this.removedHoursList.clear();
+		init();
+	}
 }

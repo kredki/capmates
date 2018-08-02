@@ -89,4 +89,9 @@ public class AvailabilityHoursList implements AvailabilityHoursDAO {
 		}
 		return Optional.ofNullable(null);
 	}
+
+	public void reset() {
+		this.availabilityHoursList.clear();
+		init();
+	}
 }

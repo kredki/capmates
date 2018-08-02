@@ -93,6 +93,12 @@ public class BoardGameList implements BoardGameDAO {
 		return result;
 	}
 
+	public void reset() {
+		counter.set(1L);
+		this.boardGameList.clear();
+		init();
+	}
+
 	private boolean isIdOnList(long id, List<Long> ids) {
 		for (Long idToCheck : ids) {
 			if (idToCheck == id) {

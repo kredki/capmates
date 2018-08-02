@@ -52,4 +52,9 @@ public class PlayerGamesList implements PlayerGamesDAO {
 		this.playerBoardGamesList.add(boardGameToAdd);
 		return boardGameToAdd;
 	}
+
+	public void reset() {
+		this.playerBoardGamesList.clear();
+		init();
+	}
 }

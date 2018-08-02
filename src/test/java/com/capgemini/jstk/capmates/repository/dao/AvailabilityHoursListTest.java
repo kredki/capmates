@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class AvailabilityHoursListTest {
 		public AvailabilityHoursList availabilityHoursList() {
 			return new AvailabilityHoursList();
 		}
+	}
+
+	@Before
+	public void setup() {
+		availabilityHoursRepository.reset();
 	}
 
 	@Test

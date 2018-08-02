@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,11 @@ public class HistoryListTest {
 		public HistoryList historyList() {
 			return new HistoryList();
 		}
+	}
+
+	@Before
+	public void setup() {
+		historyRepository.reset();
 	}
 
 	@Test

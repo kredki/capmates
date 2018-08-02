@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class BoardGameListTest {
 		public BoardGameList boardGameList() {
 			return new BoardGameList();
 		}
+	}
+
+	@Before
+	public void SetupContext() {
+		boardGameRepository.reset();
 	}
 
 	@Test

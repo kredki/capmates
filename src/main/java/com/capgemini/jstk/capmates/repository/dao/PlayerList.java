@@ -80,4 +80,10 @@ public class PlayerList implements PlayerDAO {
 		this.playerList.add(playerToAdd);
 		return playerToAdd;
 	}
+
+	public void reset() {
+		counter.set(1L);
+		this.playerList.clear();
+		init();
+	}
 }

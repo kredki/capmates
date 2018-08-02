@@ -80,4 +80,9 @@ public class HistoryList implements HistoryDAO {
 	public List<HistoryEntity> getHistoryForPlayer(Long playerId) {
 		return this.historyLists.stream().filter(x -> x.getPlayerId() == playerId).collect(Collectors.toList());
 	}
+
+	public void reset() {
+		this.historyLists.clear();
+		init();
+	}
 }
