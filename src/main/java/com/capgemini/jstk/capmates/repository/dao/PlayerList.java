@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.jstk.capmates.exceptions.NoSuchIndexException;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.PlayerDAO;
 import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 
 @Repository

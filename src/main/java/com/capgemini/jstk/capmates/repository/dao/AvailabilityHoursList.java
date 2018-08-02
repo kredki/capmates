@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Repository;
 
+import com.capgemini.jstk.capmates.repository.dao.interfaces.AvailabilityHoursDAO;
 import com.capgemini.jstk.capmates.repository.entities.AvailabilityHoursEntity;
 
 @Repository

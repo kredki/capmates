@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Repository;
 
+import com.capgemini.jstk.capmates.repository.dao.interfaces.RemovedHourDAO;
 import com.capgemini.jstk.capmates.repository.entities.RemovedHoursEntity;
 
 @Repository

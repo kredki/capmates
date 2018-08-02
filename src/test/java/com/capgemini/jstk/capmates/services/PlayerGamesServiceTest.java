@@ -18,8 +18,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.capgemini.jstk.capmates.repository.dao.BoardGameDAO;
-import com.capgemini.jstk.capmates.repository.dao.PlayerGamesDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.BoardGameDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.PlayerGamesDAO;
 import com.capgemini.jstk.capmates.repository.entities.BoardGameEntity;
 import com.capgemini.jstk.capmates.services.dto.BoardGameDTO;
 import com.capgemini.jstk.capmates.services.dto.GameToAddDTO;

@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
+import com.capgemini.jstk.capmates.repository.dao.interfaces.BoardGameDAO;
 import com.capgemini.jstk.capmates.repository.entities.BoardGameEntity;
 
 @Repository

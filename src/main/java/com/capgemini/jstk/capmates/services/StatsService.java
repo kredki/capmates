@@ -12,7 +12,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.jstk.capmates.repository.dao.HistoryDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.HistoryDAO;
 import com.capgemini.jstk.capmates.repository.entities.HistoryEntity;
 import com.capgemini.jstk.capmates.services.dto.HistoryDTO;
 import com.capgemini.jstk.capmates.services.dto.StatDTO;

@@ -10,8 +10,8 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.jstk.capmates.repository.dao.BoardGameDAO;
-import com.capgemini.jstk.capmates.repository.dao.PlayerGamesDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.BoardGameDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.PlayerGamesDAO;
 import com.capgemini.jstk.capmates.repository.entities.BoardGameEntity;
 import com.capgemini.jstk.capmates.repository.entities.PlayerBoardGameEntity;
 import com.capgemini.jstk.capmates.services.dto.BoardGameDTO;

@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.capgemini.jstk.capmates.repository.dao.HistoryDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.HistoryDAO;
 import com.capgemini.jstk.capmates.repository.entities.HistoryEntity;
 import com.capgemini.jstk.capmates.services.dto.HistoryDTO;
 import com.capgemini.jstk.capmates.services.dto.StatDTO;

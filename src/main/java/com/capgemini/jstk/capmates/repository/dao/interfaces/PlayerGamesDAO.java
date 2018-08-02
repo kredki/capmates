@@ -1,4 +1,4 @@
-package com.capgemini.jstk.capmates.repository.dao;
+package com.capgemini.jstk.capmates.repository.dao.interfaces;
 
 import java.util.List;
 

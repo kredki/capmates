@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.jstk.capmates.mappers.AvailabilityHoursMapper;
-import com.capgemini.jstk.capmates.repository.dao.AvailabilityHoursDAO;
-import com.capgemini.jstk.capmates.repository.dao.RemovedHourDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.AvailabilityHoursDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.RemovedHourDAO;
 import com.capgemini.jstk.capmates.repository.entities.AvailabilityHoursEntity;
 import com.capgemini.jstk.capmates.repository.entities.RemovedHoursEntity;
 import com.capgemini.jstk.capmates.services.dto.AvailabilityHoursDTO;

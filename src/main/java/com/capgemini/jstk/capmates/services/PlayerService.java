@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.jstk.capmates.mappers.PlayerMapper;
-import com.capgemini.jstk.capmates.repository.dao.PlayerDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.PlayerDAO;
 import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 import com.capgemini.jstk.capmates.services.dto.PlayerDTO;
 import com.capgemini.jstk.capmates.services.dto.PlayerToAddDTO;

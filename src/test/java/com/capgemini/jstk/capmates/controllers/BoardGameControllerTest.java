@@ -181,7 +181,6 @@ public class BoardGameControllerTest {
 			gameToAddJson = mapper.writeValueAsString(gameToAdd);
 			System.out.println("jsonString = " + gameToAddJson);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -22,8 +22,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.capgemini.jstk.capmates.mappers.AvailabilityHoursMapper;
-import com.capgemini.jstk.capmates.repository.dao.AvailabilityHoursDAO;
-import com.capgemini.jstk.capmates.repository.dao.RemovedHourDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.AvailabilityHoursDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.RemovedHourDAO;
 import com.capgemini.jstk.capmates.repository.entities.AvailabilityHoursEntity;
 import com.capgemini.jstk.capmates.repository.entities.RemovedHoursEntity;
 import com.capgemini.jstk.capmates.services.dto.AvailabilityHoursDTO;

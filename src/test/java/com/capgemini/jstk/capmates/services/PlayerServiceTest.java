@@ -20,7 +20,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.capgemini.jstk.capmates.mappers.PlayerMapper;
-import com.capgemini.jstk.capmates.repository.dao.PlayerDAO;
+import com.capgemini.jstk.capmates.repository.dao.interfaces.PlayerDAO;
 import com.capgemini.jstk.capmates.repository.entities.PlayerEntity;
 import com.capgemini.jstk.capmates.services.dto.PlayerDTO;
 import com.capgemini.jstk.capmates.services.dto.PlayerToAddDTO;
